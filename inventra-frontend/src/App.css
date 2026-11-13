@@ -1,0 +1,590 @@
+/* ==========================================================================
+   Inventra — Enterprise Financial Terminal Stylesheet
+   Design: Enterprise Financial Terminal (Bloomberg / SAP aesthetic)
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+  --paper: #f8f9fa;
+  --paper-alt: #f1f5f9;
+  --surface: #ffffff;
+  --navy: #0f172a;
+  --navy-border: #1e293b;
+  --ink: #0f172a;
+  --ink-muted: #64748b;
+  --rule: #e5e7eb;
+  --rule-dark: #cbd5e1;
+  --accent: #1d4ed8; /* Deep corporate blue — strictly for active states */
+  --ok: #166534;
+  --void: #b91c1c; /* Crisp red — low stock, critical warnings, delete */
+
+  --font-sans: 'Inter', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', Consolas, Menlo, monospace;
+
+  --radius: 0px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, p, div, span, label, td, th {
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   App Shell & Top Navigation Bar (Solid Dark Navy #0f172a)
+   ========================================================================== */
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--paper);
+}
+
+.app-header {
+  height: 52px;
+  background: var(--navy);
+  border-bottom: 1px solid var(--navy-border);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-radius: 0;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-title {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+}
+
+.header-nav {
+  display: flex;
+  gap: 8px;
+  height: 100%;
+}
+
+.nav-link {
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  cursor: pointer;
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 14px;
+  box-sizing: border-box;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  transition: color 100ms ease, background-color 100ms ease, border-color 100ms ease;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-link.active {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border-bottom: 2px solid var(--accent);
+}
+
+.app-content {
+  flex: 1;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0;
+  padding: 24px 32px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.app-footer {
+  padding: 16px 32px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  background: var(--paper);
+}
+
+/* ==========================================================================
+   Page Titles & Header Section
+   ========================================================================== */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: left;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--rule-dark);
+  padding-bottom: 12px;
+  margin-bottom: 4px;
+}
+
+.page-header h2 {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.page-subtitle {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin: 4px 0 0 0;
+}
+
+/* ==========================================================================
+   Filter Controls
+   ========================================================================== */
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-group label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
+.filter-select {
+  height: 30px;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 0 8px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.filter-select:focus {
+  border-color: var(--accent);
+  outline: 1px solid var(--accent);
+}
+
+/* ==========================================================================
+   Inline Containers & Form Layouts
+   ========================================================================== */
+.inline-form-container {
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  border-radius: 0;
+}
+
+.inline-form-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  margin: 0 0 14px 0;
+  font-weight: 600;
+}
+
+.form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group.full-width {
+  width: 100%;
+}
+
+.form-group label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  height: 30px;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  padding: 0 8px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.form-group input[type="number"],
+.form-group input.font-mono,
+.form-group select.font-mono {
+  font-family: var(--font-mono);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--accent);
+  outline: 1px solid var(--accent);
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   Buttons (Flat, Square Corners, Corporate Styling)
+   ========================================================================== */
+.btn {
+  height: 30px;
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  box-shadow: none;
+  text-decoration: none;
+  transition: background-color 80ms ease, color 80ms ease;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: #ffffff;
+  border: 1px solid var(--navy);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #1e293b;
+  border-color: #1e293b;
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--paper-alt);
+}
+
+.btn-delete {
+  background: transparent;
+  border: 1px solid var(--void);
+  color: var(--void);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 0;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background-color 80ms ease, color 80ms ease;
+}
+
+.btn-delete:hover {
+  background: var(--void);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Tables & Financial Grid Lines (1px solid #e5e7eb vertical grid lines)
+   ========================================================================== */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 0;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  box-shadow: none;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+  border-radius: 0;
+}
+
+.data-table th {
+  height: 32px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  border-bottom: 1px solid var(--rule);
+  border-right: 1px solid var(--rule); /* Vertical grid line */
+  font-weight: 600;
+  padding: 0 12px;
+  background: #f8fafc;
+  white-space: nowrap;
+}
+
+.data-table th:last-child {
+  border-right: none;
+}
+
+.data-table td {
+  height: 32px;
+  border-bottom: 1px solid var(--rule);
+  border-right: 1px solid var(--rule); /* Vertical grid line */
+  padding: 0 12px;
+  color: var(--ink);
+  vertical-align: middle;
+  white-space: nowrap;
+  background: var(--surface);
+}
+
+.data-table td:last-child {
+  border-right: none;
+}
+
+.data-table tbody tr:hover td {
+  background: var(--paper-alt);
+}
+
+/* Critical / Low Stock Row (Red #b91c1c Indicator) */
+.data-table tbody tr.row-critical-stock td {
+  background: #fef2f2;
+}
+
+.data-table tbody tr.row-critical-stock td:first-child {
+  border-left: 3px solid var(--void);
+}
+
+.num-cell {
+  font-family: var(--font-mono);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.code-cell {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.cell-sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  margin-left: 6px;
+}
+
+/* ==========================================================================
+   Status Badges (Crisp, Financial Status Labels)
+   ========================================================================== */
+.status-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.status-ok {
+  color: var(--ok);
+}
+
+.status-low {
+  color: var(--void); /* Red #b91c1c for low stock */
+}
+
+.status-void {
+  color: var(--void); /* Red #b91c1c for out of stock */
+}
+
+/* ==========================================================================
+   Stock Operations Container & Tabs
+   ========================================================================== */
+.operation-container {
+  border: 1px solid var(--rule);
+  padding: 20px;
+  margin-top: 24px;
+  background: var(--surface);
+  border-radius: 0;
+}
+
+.operation-header {
+  margin-bottom: 16px;
+}
+
+.operation-title {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  margin: 0 0 12px 0;
+}
+
+.tab-group {
+  display: flex;
+  gap: 16px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 16px;
+  background: transparent;
+  padding: 0;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  cursor: pointer;
+  padding: 8px 4px;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  border-radius: 0;
+  transition: color 80ms ease, border-color 80ms ease;
+}
+
+.tab-btn:hover {
+  color: var(--ink);
+  background: transparent;
+}
+
+.tab-btn.active {
+  color: var(--accent); /* Corporate blue strictly for active states */
+  background: transparent;
+  border-bottom: 2px solid var(--accent);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Feedback & Alert Messages
+   ========================================================================== */
+.inline-feedback {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  margin-top: 12px;
+  font-weight: 500;
+}
+
+.inline-feedback.error {
+  color: var(--void); /* Red #b91c1c */
+}
+
+.inline-feedback.success {
+  color: var(--ok);
+}
+
+/* ==========================================================================
+   Empty & Loading States
+   ========================================================================== */
+.table-empty, .loading-text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-muted);
+  padding: 16px 0;
+  text-align: left;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+@media (max-width: 900px) {
+  .app-header {
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 20px;
+  }
+  .header-nav {
+    gap: 8px;
+    height: auto;
+    width: 100%;
+    overflow-x: auto;
+  }
+  .nav-link {
+    height: 36px;
+    padding: 0 10px;
+  }
+  .app-content {
+    padding: 16px 20px;
+  }
+}
