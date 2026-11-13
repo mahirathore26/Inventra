@@ -1,0 +1,52 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: inventra-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-inventra}
+      POSTGRES_USER: ${POSTGRES_USER:-inventra_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-inventra_pass}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./inventra-backend/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./inventra-backend/src/main/resources/data.sql:/docker-entrypoint-initdb.d/02-data.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-inventra_user} -d $${POSTGRES_DB:-inventra}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./inventra-backend
+      dockerfile: Dockerfile
+    container_name: inventra-backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-inventra}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-inventra_user}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-inventra_pass}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./inventra-frontend
+      dockerfile: Dockerfile
+    container_name: inventra-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_started
+
+volumes:
+  postgres_data:
