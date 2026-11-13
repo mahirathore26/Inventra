@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: inventra-backend
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/inventra
+    username: inventra_user
+    password: inventra_pass
+
+  sql:
+    init:
+      mode: never
+
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
